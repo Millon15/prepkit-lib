@@ -17,6 +17,7 @@ main() {
   parse_args "$@"
   need apm git
   [ -d "$DIR" ] || die "$DIR is not a directory" 2
+  DIR="$(cd "$DIR" && pwd)"
   install_presets
   report
 }
