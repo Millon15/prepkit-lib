@@ -1,0 +1,15 @@
+name: example
+version: 0.1.0
+description: Preset. One vetted skill, as a shape to copy.
+license: MIT
+
+dependencies:
+  apm:
+    - anthropics/skills/skills/frontend-design#ca45fc496a3436251f191354091d557da31c15b5
+
+x-prepkit:
+  entries:
+    anthropics/skills/skills/frontend-design:
+      reviewed: ca45fc496a3436251f191354091d557da31c15b5
+      license: Apache-2.0
+      note: LICENSE.txt sits inside the skill folder

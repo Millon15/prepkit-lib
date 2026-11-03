@@ -1,0 +1,26 @@
+name: front-ts
+version: 0.1.0
+description: Preset. Frontend design and React review skills for a TypeScript frontend.
+license: MIT
+
+dependencies:
+  apm:
+    - anthropics/skills/skills/frontend-design#ca45fc496a3436251f191354091d557da31c15b5
+    - vercel-labs/agent-skills/skills/web-design-guidelines#1a2c79d4e6c4a2283dc2c614b6538cbe1ed5ca62
+    - vercel-labs/agent-skills/skills/react-best-practices#1a2c79d4e6c4a2283dc2c614b6538cbe1ed5ca62
+
+x-prepkit:
+  entries:
+    anthropics/skills/skills/frontend-design:
+      reviewed: ca45fc496a3436251f191354091d557da31c15b5
+      license: Apache-2.0
+      conflicts: [impeccable, taste-skill, emil-design-eng]
+      note: LICENSE.txt sits inside the skill folder; the default design skill, the conflicts are the opt-in alternatives
+    vercel-labs/agent-skills/skills/web-design-guidelines:
+      reviewed: 1a2c79d4e6c4a2283dc2c614b6538cbe1ed5ca62
+      license: MIT
+      note: README section License says MIT; the repo has no LICENSE file and package.json license is null. A reviewer skill, runs after frontend-design
+    vercel-labs/agent-skills/skills/react-best-practices:
+      reviewed: 1a2c79d4e6c4a2283dc2c614b6538cbe1ed5ca62
+      license: MIT
+      note: README section License says MIT; the repo has no LICENSE file and package.json license is null

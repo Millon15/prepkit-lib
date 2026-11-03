@@ -1,0 +1,21 @@
+name: back-ts
+version: 0.1.0
+description: Preset. Codebase design and domain modelling skills for a TypeScript backend.
+license: MIT
+
+dependencies:
+  apm:
+    - mattpocock/skills/skills/engineering/codebase-design#4ae2317ddb22b046e26455e4f9c9b3aaaf62212d
+    - mattpocock/skills/skills/engineering/domain-modeling#4ae2317ddb22b046e26455e4f9c9b3aaaf62212d
+
+x-prepkit:
+  entries:
+    mattpocock/skills/skills/engineering/codebase-design:
+      reviewed: 4ae2317ddb22b046e26455e4f9c9b3aaaf62212d
+      license: MIT
+      note: repo LICENSE is MIT; the skill on shaping modules, boundaries and dependencies
+    mattpocock/skills/skills/engineering/domain-modeling:
+      reviewed: 4ae2317ddb22b046e26455e4f9c9b3aaaf62212d
+      license: MIT
+      optional: true
+      note: leave out for a thin CRUD service; keep for anything with real business rules

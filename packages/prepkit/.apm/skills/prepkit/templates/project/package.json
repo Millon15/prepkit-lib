@@ -1,0 +1,12 @@
+{
+  "name": "__NAME__",
+  "private": true,
+  "workspaces": [
+    "web",
+    "api"
+  ],
+  "scripts": {
+    "dev": "docker compose up",
+    "typecheck": "bun run --filter '*' typecheck"
+  }
+}

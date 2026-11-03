@@ -1,0 +1,19 @@
+name: __NAME__
+version: 0.1.0
+description: Curated apm presets and vendored packages for __OWNER__.
+author: __OWNER__
+license: MIT
+
+marketplace:
+  owner:
+    name: __OWNER__
+    url: https://github.com/__OWNER__
+  outputs:
+    claude: {}
+  claude:
+    output: .claude-plugin/marketplace.json
+  packages:
+    - name: example
+      description: Preset. Replace with a real one.
+      source: ./presets/example
+      version: 0.1.0

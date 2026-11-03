@@ -1,0 +1,27 @@
+name: prepkit-lib
+version: 0.1.0
+description: Curated apm presets plus the prepkit base skill. Assemble an agent dev environment from vetted third-party skills.
+author: Millon15
+license: MIT
+
+marketplace:
+  owner:
+    name: Millon15
+    url: https://github.com/Millon15
+  outputs:
+    claude: {}
+  claude:
+    output: .claude-plugin/marketplace.json
+  packages:
+    - name: prepkit
+      description: Base skill. Scaffold a greenfield project, add presets to an existing repo, start your own package library.
+      source: ./packages/prepkit
+      version: 0.1.0
+    - name: front-ts
+      description: Preset. Frontend design and React review skills for a TypeScript frontend.
+      source: ./presets/front-ts
+      version: 0.1.0
+    - name: back-ts
+      description: Preset. Codebase design and domain modelling skills for a TypeScript backend.
+      source: ./presets/back-ts
+      version: 0.1.0

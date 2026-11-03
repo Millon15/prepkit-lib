@@ -1,0 +1,27 @@
+{
+  "name": "prepkit-lib",
+  "owner": {
+    "name": "Millon15",
+    "url": "https://github.com/Millon15"
+  },
+  "plugins": [
+    {
+      "name": "prepkit",
+      "description": "Base skill. Scaffold a greenfield project, add presets to an existing repo, start your own package library.",
+      "version": "0.1.0",
+      "source": "./packages/prepkit"
+    },
+    {
+      "name": "front-ts",
+      "description": "Preset. Frontend design and React review skills for a TypeScript frontend.",
+      "version": "0.1.0",
+      "source": "./presets/front-ts"
+    },
+    {
+      "name": "back-ts",
+      "description": "Preset. Codebase design and domain modelling skills for a TypeScript backend.",
+      "version": "0.1.0",
+      "source": "./presets/back-ts"
+    }
+  ]
+}

@@ -1,0 +1,4 @@
+name: prepkit
+version: 0.1.0
+description: Base skill. Scaffold a greenfield project, add presets to an existing repo, start your own package library.
+license: MIT

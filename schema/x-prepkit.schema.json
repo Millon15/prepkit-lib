@@ -1,0 +1,52 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/Millon15/prepkit-lib/master/schema/x-prepkit.schema.json",
+  "title": "x-prepkit",
+  "description": "Curation metadata kept beside each apm dependency of a preset. Keyed by the dependency without its #sha.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["entries"],
+  "properties": {
+    "entries": {
+      "type": "object",
+      "minProperties": 1,
+      "propertyNames": {
+        "pattern": "^[A-Za-z0-9_.-]+/[A-Za-z0-9_.-]+(/[^#\\s]+)?$"
+      },
+      "additionalProperties": { "$ref": "#/$defs/entry" }
+    }
+  },
+  "$defs": {
+    "entry": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["reviewed", "license"],
+      "properties": {
+        "reviewed": {
+          "description": "Commit sha the curator read before listing the dependency. Must equal the #sha on the dependency line.",
+          "type": "string",
+          "pattern": "^[0-9a-f]{40}$"
+        },
+        "license": {
+          "description": "SPDX identifier of the upstream repo or skill folder.",
+          "type": "string",
+          "minLength": 1
+        },
+        "conflicts": {
+          "description": "Advisory. Skill or preset names that overlap with this one; CI tests the combinations.",
+          "type": "array",
+          "items": { "type": "string", "minLength": 1 },
+          "uniqueItems": true
+        },
+        "optional": {
+          "description": "Safe to leave out when a project lists this preset's dependencies by hand.",
+          "type": "boolean"
+        },
+        "note": {
+          "description": "One line for the next curator: where the license was read, why the skill is here.",
+          "type": "string"
+        }
+      }
+    }
+  }
+}
