@@ -1,0 +1,13 @@
+name: Install pinned APM
+description: Install Agent Package Manager 0.35.0 for library validation.
+runs:
+  using: composite
+  steps:
+    - uses: actions/setup-python@v5
+      with:
+        python-version: '3.12'
+    - name: Install APM 0.35.0
+      shell: bash
+      run: |
+        python -m pip install --disable-pip-version-check apm-cli==0.35.0
+        apm --version | grep -E 'version 0\.35\.0$'

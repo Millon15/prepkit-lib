@@ -1,0 +1,16 @@
+{
+  "name": "prepkit-lib-ci",
+  "private": true,
+  "type": "module",
+  "packageManager": "bun@1.4.2",
+  "scripts": {
+    "test": "bun test ci",
+    "lint": "bash ci/lint.sh",
+    "licenses": "bash ci/licenses.sh"
+  },
+  "devDependencies": {
+    "ajv": "8.17.1",
+    "rulesync": "36.0.0",
+    "yaml": "2.8.1"
+  }
+}

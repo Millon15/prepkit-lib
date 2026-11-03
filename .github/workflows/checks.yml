@@ -1,0 +1,32 @@
+name: Library checks
+on:
+  pull_request:
+  push:
+    branches: [master]
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: '1.4.2'
+      - run: bun install --frozen-lockfile
+      - uses: ./.github/actions/install-apm
+      - run: ci/lint.sh
+      - run: ci/licenses.sh
+      - run: bun test ci
+      - name: Check committed command exports
+        run: bun ci/check-exports.ts
+      - name: Check shell syntax
+        run: find ci packages -type f -name '*.sh' -exec bash -n {} +
+      - name: Fresh-install each preset
+        shell: bash
+        run: |
+          for manifest in presets/*/apm.yml; do
+            preset="${manifest%/apm.yml}"
+            ci/fresh-install.sh "${preset##*/}"
+          done
