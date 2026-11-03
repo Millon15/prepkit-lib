@@ -95,6 +95,16 @@ scaffold_web() {
   log "web: create-vite@$CREATE_VITE_VERSION react-ts"
   (cd "$DIR" && bunx --bun "create-vite@$CREATE_VITE_VERSION" web --template react-ts --no-interactive --no-immediate >/dev/null)
   cp "$TEMPLATES/web/vite.config.ts" "$DIR/web/vite.config.ts"
+  add_web_typecheck
+}
+
+add_web_typecheck() { # create-vite ships build/lint only; the root typecheck script runs every workspace's typecheck
+  WEB_PACKAGE_JSON="$DIR/web/package.json" bun -e '
+    const file = process.env.WEB_PACKAGE_JSON;
+    const pkg = JSON.parse(await Bun.file(file).text());
+    pkg.scripts.typecheck = "tsc -b";
+    await Bun.write(file, JSON.stringify(pkg, null, 2) + "\n");
+  '
 }
 
 scaffold_api() {
@@ -179,17 +189,26 @@ check_http() { # <url> <label>
 }
 
 check_edit_visible() { # <base url>
-  local file="$DIR/web/src/App.tsx" marker kept
+  local marker
   marker="prepkit_doctor_$(date +%s)"
-  printf '\nexport const %s = true\n' "$marker" >>"$file"
+  MARKED_FILE="$DIR/web/src/App.tsx"
+  MARKED_ORIGINAL="$(cat "$MARKED_FILE")"
+  trap restore_marked_file EXIT
+  trap 'restore_marked_file; exit 130' INT TERM
+  printf '\nexport const %s = true\n' "$marker" >>"$MARKED_FILE"
   sleep 3
   if curl -fsS "$1/src/App.tsx" | grep -q "$marker"; then
+    restore_marked_file
     log "doctor: ok  the dev server serves a fresh edit (live source refresh; browser HMR not checked)"
   else
     doctor_fail "the dev server did not serve a fresh edit (bind mount or file watcher)"
   fi
-  kept="$(grep -v "$marker" "$file")"
-  printf '%s\n' "$kept" >"$file"
+}
+
+restore_marked_file() { # runs once, also from the EXIT/INT/TERM traps, so a failed or interrupted doctor leaves no marker
+  [ -n "${MARKED_FILE:-}" ] || return 0
+  printf '%s\n' "$MARKED_ORIGINAL" >"$MARKED_FILE"
+  MARKED_FILE=""
 }
 
 doctor_fail() {

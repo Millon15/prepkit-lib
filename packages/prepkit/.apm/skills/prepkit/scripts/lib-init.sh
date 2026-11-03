@@ -30,7 +30,7 @@ main() {
 parse_args() {
   DIR=""
   NAME=""
-  OWNER="$(git config user.name 2>/dev/null || true)"
+  OWNER=""
   while [ $# -gt 0 ]; do
     case "$1" in
     --name)
@@ -51,7 +51,9 @@ parse_args() {
   done
   [ -n "$DIR" ] || usage
   [ -n "$NAME" ] || NAME="$(basename "$DIR")"
-  [ -n "$OWNER" ] || OWNER="$NAME"
+  [ -n "$OWNER" ] || OWNER="$(gh api user -q .login 2>/dev/null || true)"
+  [ -n "$OWNER" ] || die "--owner <github-login> is required (gh could not tell me yours)" 2
+  [[ "$OWNER" =~ ^[A-Za-z0-9]([A-Za-z0-9-]*[A-Za-z0-9])?$ ]] || die "--owner must be a GitHub login (letters, digits, hyphens), got: $OWNER" 2
 }
 
 fetch_lib() {

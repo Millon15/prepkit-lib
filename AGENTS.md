@@ -23,8 +23,9 @@ and only exported into apm shape.
   bundle, never inside a skill. Hooks from dependencies need `apm approve` once on the consumer side.
 - Never reference `${CLAUDE_PLUGIN_ROOT}` or a path outside the skill; Codex and OpenClaw cannot resolve them, and apm
   leaves the token literal when it copies a skill.
-- A Claude command (`.apm/commands/<name>.md`) is invisible to Codex. CI turns it into a self-contained Codex skill
-  under `.apm/skills/<name>/`; commit both.
+- A Claude command (`.apm/commands/<name>.md`) is invisible to Codex. `bash ci/export-codex-skills.sh <package-dir>`
+  turns it into a self-contained Codex skill under `.apm/skills/<name>/`; commit both. CI runs the `--check` form
+  over every package and fails on drift; replacing a stale generated skill locally needs the `trash` CLI.
 
 ## Adding or bumping a dependency
 

@@ -44,7 +44,7 @@ Every dependency is pinned to a commit the curator read, with its license record
 | `ci/lint.sh` | manifests parse, every dependency carries a 40-hex sha, `x-prepkit` validates |
 | `ci/licenses.sh` | every entry's license is on the allow list |
 | `ci/fresh-install.sh <preset>` | a clean project installs the preset for Claude and Codex |
-| `ci/export-codex-skills.sh <package>` | Claude commands in vendored packages become Codex skills |
+| `ci/export-codex-skills.sh [--check] <package>` | Claude commands in vendored packages become Codex skills; `--check` fails on drift and writes nothing |
 | `ci/drift.sh` | weekly `apm outdated` report |
 
 `AGENTS.md` carries the authoring rules; start there before adding a preset.
