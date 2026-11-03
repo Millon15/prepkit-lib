@@ -184,9 +184,9 @@ check_edit_visible() { # <base url>
   printf '\nexport const %s = true\n' "$marker" >>"$file"
   sleep 3
   if curl -fsS "$1/src/App.tsx" | grep -q "$marker"; then
-    log "doctor: ok  an edit reaches the dev server"
+    log "doctor: ok  the dev server serves a fresh edit (live source refresh; browser HMR not checked)"
   else
-    doctor_fail "an edit did not reach the dev server (bind mount or file watcher)"
+    doctor_fail "the dev server did not serve a fresh edit (bind mount or file watcher)"
   fi
   kept="$(grep -v "$marker" "$file")"
   printf '%s\n' "$kept" >"$file"

@@ -26,9 +26,9 @@ Three scripts under `scripts/` beside this file. Run each with `bash` by its pat
 ## After running
 
 - `new.sh --no-up` skipped Docker: tell the user to run `docker compose up` in the directory.
-- `new.sh` ends with a doctor: the web app answers, `/api/health` answers through the Vite proxy, an edit to
-  `web/src/App.tsx` shows up through the dev server. A red doctor leaves the stack running; read
-  `docker compose logs web api` before changing anything.
+- `new.sh` ends with a doctor: the web app answers, `/api/health` answers through the Vite proxy, and the dev server
+  serves a fresh edit to `web/src/App.tsx` (live source refresh through the bind mount; browser-side HMR is not
+  checked). A red doctor leaves the stack running; read `docker compose logs web api` before changing anything.
 - apm deployed the skills to `.claude/skills/` and `.agents/skills/` and pinned them in `apm.lock.yaml`. Commit those
   with `apm.yml`.
 - `lib-init.sh` ran the new library's own `ci/lint.sh`; a failure there is reported, not hidden.
